@@ -1,0 +1,80 @@
+Console.WriteLine("Задание 1");
+        Console.WriteLine("Введите элементы массива через пробел:");
+        int[] arr = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
+        int n = arr.Length;
+
+        Console.WriteLine("Введите K и L через пробел:");
+        string[] inputs = Console.ReadLine().Split();
+        int K = int.Parse(inputs[0]);
+        int L = int.Parse(inputs[1]);
+
+        if (K < 1 || L < K || L > n)
+        {
+            Console.WriteLine("Некорректные значения K или L");
+            return;
+        }
+
+        int sum = 0;
+
+        for (int i = 0; i < n; i++)
+        {
+            if (i + 1 < K || i + 1 > L) 
+            {
+                sum += arr[i];
+            }
+        }
+
+        Console.WriteLine($"Сумма элементов массива, исключая элементы с номерами от {K} до {L}: {sum}");
+        
+        Console.WriteLine("\n\nЗадание 2");
+        int[] B = new int[n];
+        int index = 0;
+
+        //Чет
+        for (int i = 1; i < n; i += 2)
+        {
+            B[index++] = arr[i];
+        }
+
+        //Нечёт
+        for (int i = 0; i < n; i += 2)
+        {
+            B[index++] = arr[i];
+        }
+
+        Console.WriteLine("Новый массив B:");
+        
+        foreach (var item in B) Console.Write(item + " ");
+        
+        Console.WriteLine("\n\nЗадание 3");
+        Console.WriteLine("Введите количество строк M:");
+        int M = int.Parse(Console.ReadLine());
+
+        Console.WriteLine("Введите количество столбцов N:");
+        int N = int.Parse(Console.ReadLine());
+
+        int[,] matrix = new int[M, N];
+        
+        Console.WriteLine("Введите элементы матрицы построчно:");
+        for (int i = 0; i < M; i++)
+        {
+            int[] row = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
+            for (int j = 0; j < N; j++)
+            {
+                matrix[i, j] = row[j];
+            }
+        }
+
+        Console.WriteLine("Среднее арифметическое элементов строк с нечетными номерами:");
+
+        for (int i = 0; i < M; i += 2)
+        {
+            sum = 0;
+            for (int j = 0; j < N; j++)
+            {
+                sum += matrix[i, j];
+            }
+
+            double average = (double)sum / N;
+            Console.WriteLine($"Среднее арифметическое для строки {i + 1} (индекс {i}): {average}");
+        }
